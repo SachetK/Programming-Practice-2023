@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.opModes.teleop
 
+import com.acmerobotics.dashboard.telemetry.MultipleTelemetry
 import com.arcrobotics.ftclib.command.CommandOpMode
 import com.arcrobotics.ftclib.gamepad.GamepadEx
 import com.arcrobotics.ftclib.gamepad.GamepadKeys
@@ -29,6 +30,7 @@ class MainTeleOp : CommandOpMode() {
     private lateinit var driver: GamepadEx
 
     override fun initialize() {
+        telemetry = MultipleTelemetry(telemetry)
         intakeMotor = Motor(hardwareMap, "intake")
         elevatorLeftMotor = Motor(hardwareMap, "elevatorLeft")
         elevatorRightMotor = Motor(hardwareMap, "elevatorRight")
