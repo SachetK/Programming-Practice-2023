@@ -5,11 +5,14 @@ import org.firstinspires.ftc.teamcode.subsystems.elevator.ElevatorSubsystem
 
 class ElevatorSpinCommand(
     private val subsystem: ElevatorSubsystem,
-    private val down: Boolean
+    private val target: Double
 ) : CommandBase() {
-    override fun execute() = if (down && !subsystem.isPressed()) subsystem.spinDown() else subsystem.spinUp()
+    override fun initialize() {
+        subsystem.targetPos = target
+    }
+    override fun execute() = subsystem.moveToPosition()
 
-    override fun isFinished() = subsystem.isPressed()
+    override fun isFinished() = if (target == 0.0) subsystem.isPressed() || subsystem.atTargetPosition() else subsystem.atTargetPosition()
 
-    override fun end(interrupted: Boolean) = subsystem.stop()
+    override fun end(interrupted: Boolean) = subsystem.stall()
 }
